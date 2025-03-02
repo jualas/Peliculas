@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name">Peliculas</string> <!-- Nombre de la aplicación -->
+    <string name="navigation_drawer_open">Open navigation drawer
+    </string> <!-- Descripción para abrir el cajón de navegación -->
+    <string name="navigation_drawer_close">Close navigation drawer
+    </string> <!-- Descripción para cerrar el cajón de navegación -->
+    <string name="nav_header_title">Android Studio</string> <!-- Título del encabezado del cajón de navegación -->
+    <string name="nav_header_subtitle">android.studio@android.com
+    </string> <!-- Subtítulo del encabezado del cajón de navegación -->
+    <string name="nav_header_desc">Navigation header
+    </string> <!-- Descripción del encabezado del cajón de navegación -->
+    <string name="action_settings">Settings</string> <!-- Texto del elemento de menú de configuración -->
+
+    <!-- Texto nav_header -->
+    <string name="user_image">User picture
+    </string> <!-- Descripción de la imagen del usuario en el encabezado del cajón de navegación -->
+    <string name="user">User name</string> <!-- Nombre del usuario en el encabezado del cajón de navegación -->
+
+    <string name="menu_home">Home</string> <!-- Texto del elemento de menú "Home" -->
+    <string name="menu_gallery">Gallery</string> <!-- Texto del elemento de menú "Gallery" -->
+    <string name="menu_slideshow">Slideshow</string> <!-- Texto del elemento de menú "Slideshow" -->
+    <string name="fab_add_item_desc">Add new item
+    </string> <!-- Descripción del botón de acción flotante para añadir un nuevo elemento -->
+
+
+    <!-- Login Activity strings -->
+
+    <string name="btn1">Register</string>
+    <string name="btn2">Forgot Password?</string>
+    <string name="btn2_description">Recover Password</string>
+    <string name="usuario">User</string>
+    <string name="contraseña">Password</string>
+    <string name="login">Log In</string>
+    <string name="googleSignInButton">Sign In with Google</string>
+    <string name="custom_sign_in_text">Sign In with Google</string>
+    <string name="facebook_app_id">Sign In with Facebook</string>
+
+    <!-- Contact Activity strings -->
+
+    <string name="contact_name">Posters</string>
+    <string name="contact_phone">629470302</string>
+    <string name="contact_email">jualas@jualas.es</string>
+    <string name="contact_address">Princesa Street, 1, 28008 Madrid</string>
+    <string name="abrir_whatsapp">Contact for WhatsApp</string>
+
+    <!-- Snackbar messages -->
+
+    <string name="snackbar_text">Close</string>
+    <string name="snackbar_register">Welcome</string>
+    <string name="snackbar_forgot_password">Forgot Password</string>
+    <string name="snackbar_login">Logging in…</string>
+    <string name="snackbar_login_failed">Incorrect credentials</string>
+    <string name="snackbar_facebook">Sign in with Facebook</string>
+    <string name="snackbar_google">Sign in with Google</string>
+
+    <!-- Error messages -->
+
+    <string name="username_empty_error">Username cannot be empty</string>
+    <string name="password_empty_error">Password cannot be empty</string>
+
+    <!-- Item View strings -->
+
+    <string name="year">Year</string>
+    <string name="condition">Condition</string>
+    <string name="estimated_price">Estimated Price</string>
+    <string name="title_placeholder">Movie Title</string>
+    <string name="year_placeholder">Year: 1950</string>
+    <string name="condition_placeholder">Condition: Excellent</string>
+    <string name="price_placeholder">Estimated Price: $500</string>
+    <string name="movie_poster_description">Movie poster</string>
+    <string name="favorite_button_description">Mark as favorite</string>
+
+    <!-- Condition translations -->
+    <string name="condition_excellent">Excellent</string>
+    <string name="condition_good">Good</string>
+    <string name="condition_regular">Regular</string>
+
+    <!-- Movie Titles -->
+    <string name="movie_title_1">Movie A</string>
+    <string name="movie_title_2">Movie B</string>
+    <string name="movie_title_3">Movie C</string>
+    <string name="movie_title_4">Movie D</string>
+    <string name="movie_title_5">Movie E</string>
+
+    <!-- Settings Fragment -->
+    <string name="settings_title">Settings</string>
+    <string name="appearance">Appearance</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="follow_system">Follow system settings</string>
+    <string name="notifications">Notifications</string>
+    <string name="new_movies">New movies</string>
+    <string name="app_updates">App updates</string>
+    <string name="data_storage">Data and storage</string>
+    <string name="clear_cache">Clear cache</string>
+    <string name="download_quality">Download quality</string>
+    <string name="about">About</string>
+    <string name="version">Version</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="save_changes">Save changes</string>
+
+    <!-- Movie Posters -->
+    <string name="image_poster_description">Poster image</string>
+
+    <!-- Strings para el diálogo de cierre de sesión -->
+    <string name="logout_title">Log out</string>
+    <string name="logout_message">Are you sure you want to log out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- Fragment Search Results -->
+    <string name="no_search_results">No results found</string>
+    <string name="search_results_for">Resultados para: %s</string>
+
+    <!-- Claves google-cloud -->
+    <string name="web_client_id">944712866383-tsqcjilagr0sih488qors5q91221ks5k.apps.googleusercontent.com</string>
+</resources>

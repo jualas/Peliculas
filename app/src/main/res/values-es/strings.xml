@@ -1,0 +1,105 @@
+<resources>
+        <string name="app_name">Películas</string> <!-- Nombre de la aplicación -->
+        <string name="navigation_drawer_open">Abrir el cajón de navegación</string> <!-- Descripción para abrir el cajón de navegación -->
+        <string name="navigation_drawer_close">Cerrar el cajón de navegación</string> <!-- Descripción para cerrar el cajón de navegación -->
+        <string name="nav_header_title">Android Studio</string> <!-- Título del encabezado del cajón de navegación -->
+        <string name="nav_header_subtitle">android.studio@android.com</string> <!-- Subtítulo del encabezado del cajón de navegación -->
+        <string name="nav_header_desc">Encabezado de navegación</string> <!-- Descripción del encabezado del cajón de navegación -->
+        <string name="action_settings">Configuración</string> <!-- Texto del elemento de menú de configuración -->
+
+        <!-- Texto nav_header -->
+        <string name="user_image">Imagen del usuario</string> <!-- Descripción de la imagen del usuario en el encabezado del cajón de navegación -->
+        <string name="user">Nombre del usuario</string> <!-- Nombre del usuario en el encabezado del cajón de navegación -->
+
+        <string name="menu_home">Inicio</string> <!-- Texto del elemento de menú "Home" -->
+        <string name="menu_gallery">Galería</string> <!-- Texto del elemento de menú "Gallery" -->
+        <string name="menu_slideshow">Presentación</string> <!-- Texto del elemento de menú "Slideshow" -->
+        <string name="fab_add_item_desc">Añadir nuevo elemento</string>
+
+
+        <!-- Login Activity strings -->
+        <string name="btn1">Registro</string>
+        <string name="btn2">¿Olvidó la Contraseña?</string>
+        <string name="btn2_description">Recuperar la contraseña</string>
+        <string name="usuario">Usuario</string>
+        <string name="contraseña">Contraseña</string>
+        <string name="login">Iniciar Sesión</string>
+        <string name="googleSignInButton">Iniciar Sesión con Google</string>
+        <string name="custom_sign_in_text">Iniciar sesión con Google</string>
+        <string name="facebook_app_id">Iniciar Sesión con Facebook</string>
+
+        <!-- Contact Activity strings -->
+        <string name="contact_name">Carteles</string>
+        <string name="contact_phone">629470302</string>
+        <string name="contact_email">jualas@jualas.es</string>
+        <string name="contact_address">Calle de la Princesa, 1, 28008 Madrid</string>
+        <string name="abrir_whatsapp">Contactar por WhatsApp</string>
+
+        <!-- Snackbar messages -->
+        <string name="snackbar_text">Cerrar</string>
+        <string name="snackbar_register">Bienvenido</string>
+        <string name="snackbar_forgot_password">Olvidó la contraseña</string>
+        <string name="snackbar_login">Iniciando sesión…</string>
+        <string name="snackbar_login_failed">Credenciales incorrectas</string>
+        <string name="snackbar_facebook">Iniciar sesión con Facebook</string>
+        <string name="snackbar_google">Iniciar sesión con Google</string>
+
+        <!-- Error messages -->
+        <string name="username_empty_error">El nombre de usuario no puede estar vacío</string>
+        <string name="password_empty_error">La contraseña no puede estar vacía</string>
+
+        <!-- Item View strings -->
+        <string name="year">Año</string>
+        <string name="condition">Estado</string>
+        <string name="estimated_price">Precio estimado</string>
+        <string name="title_placeholder">Título de la película</string>
+        <string name="year_placeholder">Año: 1950</string>
+        <string name="condition_placeholder">Estado: Excelente</string>
+        <string name="price_placeholder">Precio estimado: €500</string>
+        <string name="movie_poster_description">Cartel de la película</string>
+        <string name="favorite_button_description">Marcar como favorito</string>
+
+        <!-- Condition translations -->
+        <string name="condition_excellent">Excelente</string>
+        <string name="condition_good">Bueno</string>
+        <string name="condition_regular">Regular</string>
+
+        <!-- Movie Titles -->
+        <string name="movie_title_1">Película A</string>
+        <string name="movie_title_2">Película B</string>
+        <string name="movie_title_3">Película C</string>
+        <string name="movie_title_4">Película D</string>
+        <string name="movie_title_5">Película E</string>
+
+        <!-- Settings Fragment -->
+        <string name="settings_title">Configuración</string>
+        <string name="appearance">Apariencia</string>
+        <string name="dark_mode">Modo oscuro</string>
+        <string name="follow_system">Seguir configuración del sistema</string>
+        <string name="notifications">Notificaciones</string>
+        <string name="new_movies">Nuevas películas</string>
+        <string name="app_updates">Actualizaciones de la app</string>
+        <string name="data_storage">Datos y almacenamiento</string>
+        <string name="clear_cache">Limpiar caché</string>
+        <string name="download_quality">Calidad de descarga</string>
+        <string name="about">Acerca de</string>
+        <string name="version">Versión</string>
+        <string name="privacy_policy">Política de privacidad</string>
+        <string name="save_changes">Guardar cambios</string>
+
+        <!-- Movie Posters -->
+        <string name="image_poster_description">Imagen del Cartel</string>
+
+        <!-- Strings para el diálogo de cierre de sesión -->
+        <string name="logout_title">Cerrar sesión</string>
+        <string name="logout_message">¿Estás seguro de que quieres cerrar sesión?</string>
+        <string name="yes">Sí</string>
+        <string name="no">No</string>
+
+        <!-- Fragment Search Results -->
+        <string name="no_search_results">No se encontraron resultados</string>
+        <string name="search_results_for">Resultados de búsqueda: %s</string>
+
+        <!-- Claves google-cloud -->
+        <string name="web_client_id">944712866383-tsqcjilagr0sih488qors5q91221ks5k.apps.googleusercontent.com</string>
+    </resources>

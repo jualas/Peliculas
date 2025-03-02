@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "944712866383",
+    "firebase_url": "https://peliculas-21827-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "peliculas-21827",
+    "storage_bucket": "peliculas-21827.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944712866383:android:c81a3857e6148d3c5c683a",
+        "android_client_info": {
+          "package_name": "es.jualas.peliculas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944712866383-2bm2vsbq5ci68na1615i55jl14a0empo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "es.jualas.peliculas",
+            "certificate_hash": "be0255df1ad63095b223a0fc8fdbadb1d46394a3"
+          }
+        },
+        {
+          "client_id": "944712866383-nqjrfmi9c8cp0na3h7e424m5cnr5a68f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_yOkRvuFj8OPJz4aMGjjTLwJsYVEsG0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944712866383-nqjrfmi9c8cp0na3h7e424m5cnr5a68f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

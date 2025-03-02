@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tema base de la aplicación -->
+    <style name="Base.Theme.Peliculas" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Personaliza tu tema aquí -->
+        <item name="colorPrimary">@color/md_theme_primary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorSecondary">@color/md_theme_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
+        <item name="android:statusBarColor">@color/md_theme_dark_surface</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <!-- Tema para el Splash Screen -->
+    <style name="Theme.Peliculas.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@android:color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splashlogo</item>
+        <item name="windowSplashScreenAnimationDuration">300</item>
+        <item name="windowSplashScreenIconBackgroundColor">@android:color/transparent</item>
+
+        <!-- Establece el tema que se aplicará después del SplashScreen -->
+        <item name="postSplashScreenTheme">@style/Theme.Peliculas</item>
+    </style>
+
+    <!-- Tema principal de la aplicación -->
+    <style name="Theme.Peliculas" parent="Base.Theme.Peliculas" />
+
+    <!-- Estilo para imagen de perfil redonda -->
+    <style name="CircleImageView">
+        <item name="cornerSize">50%</item>
+    </style>
+
+</resources>
