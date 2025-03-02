@@ -87,3 +87,18 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
+
+// Configuración de Dokka
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+    outputDirectory.set(file("$projectDir/../docs"))
+}
+
+// Configuración específica para formato GFM (GitHub Flavored Markdown)
+tasks.named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaGfm") {
+    outputDirectory.set(file("$projectDir/../docs/markdown"))
+}
+
+// Configuración específica para formato HTML
+tasks.named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaHtml") {
+    outputDirectory.set(file("$projectDir/../docs/html"))
+}
