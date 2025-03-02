@@ -1,0 +1,8 @@
+//[app](../../../index.md)/[es.jualas.peliculas.viewmodel](../index.md)/[AuthViewModel](index.md)/[registerResult](register-result.md)
+
+# registerResult
+
+[androidJvm]\
+val [registerResult](register-result.md): [LiveData](https://developer.android.com/reference/kotlin/androidx/lifecycle/LiveData.html)&lt;[Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-result/index.html)&lt;[User](../../es.jualas.peliculas.data.model/-user/index.md)&gt;&gt;
+
+LiveData público que expone el resultado del registro.
