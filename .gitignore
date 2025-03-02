@@ -1,14 +1,56 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/captures
-.externalNativeBuild
-.cxx
+# Archivos de configuración de Gradle
+.gradle/
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# Archivos locales
 local.properties
+*.log
+
+# Archivos de IDE
+*.iml
+.idea/
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/misc.xml
+.idea/runConfigurations.xml
+.idea/deploymentTargetDropDown.xml
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Archivos generados
+/captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.ap_
+*.aab
+output.json
+
+# Archivos de keystore (confidenciales)
+*.jks
+*.keystore
+keystore.properties
+
+# Google Services
+google-services.json
+/app/google-services.json
+
+# Proguard
+/app/proguard-rules.pro
