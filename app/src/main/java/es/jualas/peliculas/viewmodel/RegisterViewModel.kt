@@ -1,11 +1,11 @@
 package es.jualas.peliculas.viewmodel
 
+import AuthRepository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import es.jualas.peliculas.data.model.User
-import es.jualas.peliculas.data.repository.AuthRepository
 import kotlinx.coroutines.launch
 
 /**

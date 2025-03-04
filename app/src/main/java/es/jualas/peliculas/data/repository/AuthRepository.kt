@@ -1,6 +1,5 @@
-package es.jualas.peliculas.data.repository
-
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import es.jualas.peliculas.data.model.User
 import kotlinx.coroutines.tasks.await
 
@@ -13,6 +12,8 @@ import kotlinx.coroutines.tasks.await
  */
 class AuthRepository {
     private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
+    private val usersCollection = firestore.collection("users")
 
     /**
      * Inicia sesión con email y contraseña.
@@ -49,6 +50,10 @@ class AuthRepository {
             val user = authResult.user?.let {
                 User(it.uid, it.email ?: "", name)
             } ?: throw Exception("Error al crear usuario")
+            
+            // Guardar el usuario en Firestore
+            usersCollection.document(user.uid).set(user).await()
+            
             Result.success(user)
         } catch (e: Exception) {
             Result.failure(e)
