@@ -2,13 +2,19 @@ package es.jualas.peliculas.ui.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import es.jualas.peliculas.R
+import es.jualas.peliculas.data.model.AuthState
 import es.jualas.peliculas.databinding.FragmentRecoverBinding
 import es.jualas.peliculas.viewmodel.RecoverViewModel
 
@@ -66,6 +72,9 @@ class RecoverFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Configurar el MenuProvider para desactivar los menús
+        setupMenuProvider()
+        
         setupObservers()
         
         /**
@@ -83,7 +92,25 @@ class RecoverFragment : Fragment() {
         }
     }
     
-        /**
+    /**
+     * Configura el proveedor de menús para este fragmento.
+     * En este caso, se utiliza para desactivar la visualización de menús.
+     */
+    private fun setupMenuProvider() {
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Dejamos el menú vacío para que no se muestre ninguna opción
+                menu.clear()
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // No procesamos ningún ítem de menú ya que no hay menú
+                return false
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+    
+    /**
      * Configura los observadores para los LiveData del ViewModel.
      * 
      * Este método establece tres observadores principales:
@@ -92,37 +119,37 @@ class RecoverFragment : Fragment() {
      * 3. Para el estado de éxito, navegando de vuelta a la pantalla de login
      */
     private fun setupObservers() {
-        /**
-         * Observa el estado de carga para actualizar la interfaz de usuario.
-         * Cuando está cargando, deshabilita el botón de recuperación y muestra
-         * el indicador de progreso.
-         */
-        recoverViewModel.loading.observe(viewLifecycleOwner) { isLoading ->
-            binding.btnRecover.isEnabled = !isLoading
-            binding.progressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
-        }
-        
-        /**
-         * Observa los mensajes de error del ViewModel.
-         * Muestra un Toast con el mensaje de error y limpia el estado de error
-         * para evitar que se muestre repetidamente.
-         */
-        recoverViewModel.error.observe(viewLifecycleOwner) { errorMsg ->
-            errorMsg?.let {
-                Toast.makeText(requireContext(), "Error: $it", Toast.LENGTH_SHORT).show()
-                recoverViewModel.clearError()
-            }
-        }
-        
-        /**
-         * Observa el estado de éxito del proceso de recuperación.
-         * Si es exitoso, muestra un mensaje informativo y navega de vuelta
-         * a la pantalla de inicio de sesión.
-         */
-        recoverViewModel.success.observe(viewLifecycleOwner) { isSuccess ->
-            if (isSuccess) {
-                Toast.makeText(requireContext(), "Si el correo existe, se ha enviado la recuperación", Toast.LENGTH_LONG).show()
-                findNavController().navigate(R.id.action_recover_to_login)
+        recoverViewModel.recoverState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is AuthState.Idle -> {
+                    // Estado inicial, no hacer nada
+                }
+                is AuthState.Loading -> {
+                    // Mostrar indicador de carga
+                    binding.btnRecover.isEnabled = false
+                    binding.progressBar?.visibility = View.VISIBLE
+                }
+                is AuthState.Success -> {
+                    // Ocultar carga y mostrar mensaje de éxito
+                    binding.btnRecover.isEnabled = true
+                    binding.progressBar?.visibility = View.GONE
+                    Toast.makeText(requireContext(),
+                        "Si el correo existe, se ha enviado la recuperación",
+                        Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.action_recover_to_login)
+                    // Importante: resetear el estado después de consumirlo
+                    recoverViewModel.resetRecoverState()
+                }
+                is AuthState.Error -> {
+                    // Ocultar carga y mostrar error
+                    binding.btnRecover.isEnabled = true
+                    binding.progressBar?.visibility = View.GONE
+                    Toast.makeText(requireContext(),
+                        "Error: ${state.message ?: "Error en la recuperación de contraseña"}",
+                        Toast.LENGTH_SHORT).show()
+                    // Importante: resetear el estado después de consumirlo
+                    recoverViewModel.resetRecoverState()
+                }
             }
         }
     }

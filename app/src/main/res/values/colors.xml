@@ -16,4 +16,5 @@
     <color name="md_theme_onSecondary">#FFFFFFFF</color>
     <color name="md_theme_dark_surface">#FF121212</color>
     <color name="md_theme_light_background">#FFFFFF</color>
+    <color name="colorPrimaryDark">#303F9F</color>
 </resources>

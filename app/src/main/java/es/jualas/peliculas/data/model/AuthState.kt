@@ -1,30 +1,31 @@
 package es.jualas.peliculas.data.model
 
 /**
- * Clase sealed que representa los diferentes estados de las operaciones de autenticación.
- * Permite un manejo consistente de estados en toda la aplicación.
+ * Clase sellada que representa los diferentes estados de autenticación.
  */
-sealed class AuthState<out T> {
+sealed class AuthState {
     /**
-     * Estado inicial o de reposo, antes de iniciar cualquier operación.
+     * Estado inicial o de reposo.
      */
-    object Idle : AuthState<Nothing>()
+    object Idle : AuthState()
     
     /**
-     * Estado de carga, indica que una operación está en progreso.
+     * Estado de carga, cuando se está procesando una operación de autenticación.
      */
-    object Loading : AuthState<Nothing>()
+    object Loading : AuthState()
     
     /**
-     * Estado de éxito, contiene los datos resultantes de la operación.
-     * @param data Los datos resultantes de la operación.
+     * Estado de éxito, cuando una operación de autenticación se completa correctamente.
+     * 
+     * @param data Datos opcionales asociados con el éxito de la operación.
      */
-    data class Success<T>(val data: T) : AuthState<T>()
+    data class Success(val data: Any? = null) : AuthState()
     
     /**
-     * Estado de error, contiene información sobre el error ocurrido.
-     * @param exception La excepción que causó el error.
-     * @param message Un mensaje descriptivo del error.
+     * Estado de error, cuando una operación de autenticación falla.
+     * 
+     * @param message Mensaje descriptivo del error.
+     * @param exception Excepción opcional que causó el error.
      */
-    data class Error(val exception: Throwable? = null, val message: String? = null) : AuthState<Nothing>()
+    data class Error(val message: String? = null, val exception: Throwable? = null) : AuthState()
 }

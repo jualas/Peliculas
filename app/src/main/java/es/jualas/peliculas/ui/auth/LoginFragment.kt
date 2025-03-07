@@ -5,7 +5,6 @@ import android.util.Patterns
 import android.text.TextWatcher
 import es.jualas.peliculas.databinding.FragmentLoginBinding
 import android.view.LayoutInflater
-import es.jualas.peliculas.viewmodel.AuthViewModel
 import android.view.View
 import android.text.Editable
 import android.widget.Toast
@@ -13,8 +12,15 @@ import es.jualas.peliculas.R
 import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import es.jualas.peliculas.data.model.AuthState
+import es.jualas.peliculas.viewmodel.LoginViewModel
+import android.app.Activity
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.gms.common.api.ApiException
 
 /**
  * Fragmento que gestiona la pantalla de inicio de sesión de la aplicación.
@@ -28,7 +34,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
      * ViewModel compartido que gestiona la lógica de autenticación.
      * Se usa activityViewModels() para compartir la instancia entre fragmentos.
      */
-    private val viewModel: AuthViewModel by activityViewModels()
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,78 +44,114 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        
-        // Verificar si el usuario ya está autenticado
-        viewModel.getCurrentUser()?.let {
-            // Usuario ya autenticado, navegar directamente a la app
-            findNavController().navigate(R.id.homeFragment)
-            return
-        }
-        
-        binding.loginButton.setOnClickListener {
-            val email = binding.usernameInput.text.toString().trim()
-            val password = binding.passwordInput.text.toString().trim()
-            
-            if (!validateEmail(email)) {
-                return@setOnClickListener
-            }
-            
-            if (!validatePassword(password)) {
-                return@setOnClickListener
-            }
-            
-            // Realizar login
-            viewModel.login(email, password)
-        }
-        
-        binding.registerButton.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-        }
-        
-        binding.forgotPasswordButton.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_recoverFragment)
-        }
-        
-        binding.signGoogle.setOnClickListener {
-            Toast.makeText(requireContext(), "Inicio de sesión con Google no implementado", Toast.LENGTH_SHORT).show()
-        }
-        
-        // Observar el estado de inicio de sesión
-        viewModel.loginState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is AuthState.Idle -> {
-                    // Estado inicial, no hacer nada
-                }
-                is AuthState.Loading -> {
-                    showLoading(true)
-                }
-                is AuthState.Success -> {
-                    showLoading(false)
-                    Toast.makeText(requireContext(), "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.homeFragment)
-                    // Importante: resetear el estado después de consumirlo
-                    viewModel.resetLoginState()
-                }
-                is AuthState.Error -> {
-                    showLoading(false)
-                    val errorMessage = when {
-                        state.message?.contains("password") == true -> "Contraseña incorrecta"
-                        state.message?.contains("user") == true -> "Usuario no encontrado"
-                        state.message?.contains("network") == true -> "Error de conexión"
-                        else -> state.message ?: "Error en el inicio de sesión"
-                    }
-                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-                    // Importante: resetear el estado después de consumirlo
-                    viewModel.resetLoginState()
-                }
-            }
-        }
-        
-        // Configurar TextWatchers para validar los campos
-        setupTextWatchers()
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+
+    // Verificar si el usuario ya está autenticado
+    viewModel.getCurrentUser()?.let {
+        // Usuario ya autenticado, navegar directamente a la app
+        findNavController().navigate(R.id.homeFragment)
+        return
     }
+
+    // Configurar Google Sign In
+    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestIdToken(getString(R.string.default_web_client_id))
+        .requestEmail()
+        .build()
+
+    val googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+
+    // Asegurar que el botón de Google esté siempre habilitado
+    binding.signGoogle.isEnabled = true
+
+    // Launcher para el intent de inicio de sesión con Google
+    val signInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        Log.d("LoginFragment", "Google Sign-In result: ${result.resultCode}")
+        if (result.resultCode == Activity.RESULT_OK) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                Log.d("LoginFragment", "Google Sign-In successful, email: ${account.email}")
+                account.idToken?.let { token ->
+                    Log.d("LoginFragment", "Authenticating with Firebase using token")
+                    viewModel.loginWithGoogle(token)
+                } ?: run {
+                    Log.e("LoginFragment", "Error: No se pudo obtener el token")
+                    Toast.makeText(requireContext(), "Error: No se pudo obtener el token", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: ApiException) {
+                Log.e("LoginFragment", "Google Sign-In failed: ${e.statusCode}", e)
+                Toast.makeText(requireContext(), "Error de Google Sign In: ${e.statusCode}", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Log.e("LoginFragment", "Google Sign-In canceled or failed")
+        }
+    }
+
+    binding.loginButton.setOnClickListener {
+        val email = binding.usernameInput.text.toString().trim()
+        val password = binding.passwordInput.text.toString().trim()
+
+        if (!validateEmail(email)) {
+            return@setOnClickListener
+        }
+
+        if (!validatePassword(password)) {
+            return@setOnClickListener
+        }
+
+        // Realizar login
+        viewModel.login(email, password)
+    }
+
+    binding.registerButton.setOnClickListener {
+        findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+    }
+
+    binding.forgotPasswordButton.setOnClickListener {
+        findNavController().navigate(R.id.action_loginFragment_to_recoverFragment)
+    }
+
+    binding.signGoogle.setOnClickListener {
+        signInLauncher.launch(googleSignInClient.signInIntent)
+    }
+
+    // Observar el estado de inicio de sesión
+    viewModel.loginState.observe(viewLifecycleOwner) { state ->
+        Log.d("LoginFragment", "Login state changed to: $state")
+        when (state) {
+            is AuthState.Idle -> {
+                // No hacer nada
+            }
+            is AuthState.Loading -> {
+                showLoading(true)
+            }
+            is AuthState.Success -> {
+                showLoading(false)
+                Toast.makeText(requireContext(), "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                Log.d("LoginFragment", "Navigating to home fragment")
+                findNavController().navigate(R.id.homeFragment)
+                viewModel.resetLoginState()
+            }
+            is AuthState.Error -> {
+                showLoading(false)
+                val errorMessage = when {
+                    state.message?.contains("password") == true -> "Contraseña incorrecta"
+                    state.message?.contains("user") == true -> "Usuario no encontrado"
+                    state.message?.contains("network") == true -> "Error de conexión"
+                    else -> state.message ?: "Error en el inicio de sesión"
+                }
+                Log.e("LoginFragment", "Login error: $errorMessage")
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                viewModel.resetLoginState()
+            }
+        }
+    }
+
+    // Configurar validación de campos
+    setupInputValidation()
+}
 
     /**
      * Valida el formato del correo electrónico.
@@ -167,11 +209,19 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
      * @param isLoading true para mostrar el indicador de carga, false para ocultarlo
      */
     private fun showLoading(isLoading: Boolean) {
+        // Deshabilitar todos los botones durante la carga
         binding.loginButton.isEnabled = !isLoading
         binding.registerButton.isEnabled = !isLoading
         binding.forgotPasswordButton.isEnabled = !isLoading
-        binding.signGoogle.isEnabled = !isLoading
+        binding.signGoogle.isEnabled = !isLoading // Este sí se deshabilita durante la carga
+
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+
+        // Si terminamos de cargar, restauramos el estado correcto del botón de inicio de sesión
+        if (!isLoading) {
+            validateInputs() // Esto reestablecerá el estado correcto del botón de login
+            binding.signGoogle.isEnabled = true // Aseguramos que el botón de Google esté habilitado
+        }
     }
 
     /**
@@ -202,16 +252,38 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
      * Verifica que tanto el correo como la contraseña cumplan con los requisitos mínimos
      * para habilitar el botón de inicio de sesión.
      */
-    private fun validateInputs() {
-        val email = binding.usernameInput.text.toString().trim()
-        val password = binding.passwordInput.text.toString()
-        
-        val isEmailValid = email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        val isPasswordValid = password.isNotEmpty() && password.length >= 6
-        
-        // Habilitar el botón solo si ambos campos son válidos
-        binding.loginButton.isEnabled = isEmailValid && isPasswordValid
+
+
+private fun setupInputValidation() {
+    // TextWatcher para validar en tiempo real
+    val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        override fun afterTextChanged(s: Editable?) {
+            validateInputs()
+        }
     }
+
+    binding.usernameInput.addTextChangedListener(textWatcher)
+    binding.passwordInput.addTextChangedListener(textWatcher)
+
+    // Validación inicial
+    validateInputs()
+}
+
+private fun validateInputs() {
+    val email = binding.usernameInput.text.toString().trim()
+    val password = binding.passwordInput.text.toString()
+
+    val isEmailValid = email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    val isPasswordValid = password.isNotEmpty() && password.length >= 6
+
+    // Solo habilitar el botón de login si ambos campos son válidos
+    binding.loginButton.isEnabled = isEmailValid && isPasswordValid
+
+    // Asegurar que el botón de Google siempre esté habilitado
+    binding.signGoogle.isEnabled = true
+}
 
     /**
      * Limpia los recursos cuando la vista del fragmento es destruida.

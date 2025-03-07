@@ -1,3 +1,4 @@
+package es.jualas.peliculas.data.repository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import es.jualas.peliculas.data.model.User
@@ -29,6 +30,39 @@ class AuthRepository {
             val user = authResult.user?.let {
                 User(it.uid, it.email ?: "")
             } ?: throw Exception("Usuario no encontrado")
+            Result.success(user)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    /**
+     * Autentica al usuario usando una credencial de Google.
+     *
+     * @param idToken Token de ID obtenido del proceso de inicio de sesión de Google
+     * @return [Result] que contiene un objeto [User] si la autenticación es exitosa
+     */
+    suspend fun loginWithGoogle(idToken: String): Result<User> {
+        return try {
+            val credential = com.google.firebase.auth.GoogleAuthProvider.getCredential(idToken, null)
+            val authResult = firebaseAuth.signInWithCredential(credential).await()
+
+            // Obtener datos del usuario
+            val firebaseUser = authResult.user ?: throw Exception("Usuario no encontrado")
+
+            // Comprobar si es un usuario nuevo
+            val isNewUser = authResult.additionalUserInfo?.isNewUser ?: false
+            val user = User(
+                uid = firebaseUser.uid,
+                email = firebaseUser.email ?: "",
+                name = firebaseUser.displayName ?: ""
+            )
+
+            // Si es nuevo, guardar en Firestore
+            if (isNewUser) {
+                usersCollection.document(user.uid).set(user).await()
+            }
+
             Result.success(user)
         } catch (e: Exception) {
             Result.failure(e)

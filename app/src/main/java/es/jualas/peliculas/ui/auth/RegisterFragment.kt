@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import es.jualas.peliculas.R
+import es.jualas.peliculas.data.model.AuthState
 import es.jualas.peliculas.databinding.FragmentRegisterBinding
 import es.jualas.peliculas.viewmodel.RegisterViewModel
 import java.util.*
@@ -143,27 +144,35 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
          * Maneja tanto el caso de éxito (redirigiendo al usuario al fragmento principal)
          * como el caso de error (mostrando un mensaje con la descripción del error).
          */
-        viewModel.registrationResult.observe(viewLifecycleOwner) { result ->
-            result.onSuccess {
-                Toast.makeText(requireContext(), "Registro exitoso", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
-            }.onFailure { exception ->
-                Toast.makeText(
-                    requireContext(),
-                    "Error en el registro: ${exception.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+        viewModel.registerState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is AuthState.Idle -> {
+                    // Estado inicial, no hacer nada
+                }
+                is AuthState.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.btnRegister.isEnabled = false
+                }
+                is AuthState.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.btnRegister.isEnabled = true
+                    Toast.makeText(requireContext(), "Registro exitoso", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                    // Importante: resetear el estado después de consumirlo
+                    viewModel.resetRegisterState()
+                }
+                is AuthState.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.btnRegister.isEnabled = true
+                    Toast.makeText(
+                        requireContext(),
+                        "Error en el registro: ${state.message ?: "Error desconocido"}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    // Importante: resetear el estado después de consumirlo
+                    viewModel.resetRegisterState()
+                }
             }
-        }
-        
-        /**
-         * Observa el estado de carga durante el proceso de registro.
-         * 
-         * Controla la visibilidad del indicador de progreso para proporcionar
-         * retroalimentación visual al usuario mientras se procesa la solicitud.
-         */
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
 
     }

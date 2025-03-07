@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 
 /**
  * Fragmento que muestra la pantalla principal de la aplicación con un listado de películas.
- * 
+ *
  * Este fragmento es responsable de:
  * - Mostrar un grid de películas disponibles
  * - Permitir la navegación al detalle de cada película
@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
      * Se inicializa en [onCreateView] y se limpia en [onDestroyView] para evitar memory leaks.
      */
     private var _binding: FragmentHomeBinding? = null
-    
+
     /**
      * Propiedad delegada que proporciona acceso seguro al binding.
      * Lanza una excepción si se accede después de que [_binding] se ha establecido a null.
@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
      * Maneja la carga de películas, gestión de favoritos y estados de UI.
      */
     private lateinit var homeViewModel: HomeViewModel
-    
+
     /**
      * Adaptador para el RecyclerView que muestra la lista de películas.
      * Gestiona la representación visual de cada película y los eventos de clic.
@@ -88,7 +88,7 @@ class HomeFragment : Fragment() {
 
     /**
      * Configura el RecyclerView con su adaptador y layout manager.
-     * 
+     *
      * Inicializa el adaptador con dos callbacks:
      * - onMovieClick: Para navegar al detalle de la película seleccionada
      * - onFavoriteClick: Para marcar/desmarcar una película como favorita
@@ -111,14 +111,14 @@ class HomeFragment : Fragment() {
             adapter = movieAdapter
         }
     }
-        /**
+    /**
      * Configura los observadores para los LiveData del ViewModel.
-     * 
+     *
      * Este método establece tres observadores principales:
      * 1. Estado de carga: Muestra u oculta el indicador de progreso
      * 2. Errores: Muestra mensajes de error mediante Snackbar
      * 3. Lista de películas: Actualiza el RecyclerView cuando hay nuevos datos
-     * 
+     *
      * Finalmente, inicia la carga de películas desde el ViewModel.
      */
     private fun observeMovies() {
@@ -157,15 +157,15 @@ class HomeFragment : Fragment() {
         homeViewModel.loadMovies()
     }
 
-   /**
-    * Navega a la pantalla de detalle de una película.
-    * 
-    * Utiliza el sistema de navegación de Android Jetpack para transicionar al fragmento
-    * de detalle, pasando el ID de la película como argumento a través de un Bundle.
-    * 
-    * @param movie La película seleccionada cuyo detalle se quiere mostrar
-    */
-   private fun navigateToMovieDetail(movie: Movie) {
+    /**
+     * Navega a la pantalla de detalle de una película.
+     *
+     * Utiliza el sistema de navegación de Android Jetpack para transicionar al fragmento
+     * de detalle, pasando el ID de la película como argumento a través de un Bundle.
+     *
+     * @param movie La película seleccionada cuyo detalle se quiere mostrar
+     */
+    private fun navigateToMovieDetail(movie: Movie) {
         // Crear un bundle con el ID de la película
         val bundle = Bundle().apply {
             putString("movieId", movie.id)
@@ -177,7 +177,7 @@ class HomeFragment : Fragment() {
 
     /**
      * Limpia los recursos cuando la vista del fragmento es destruida.
-     * 
+     *
      * Establece el binding a null para evitar memory leaks, ya que la vista
      * del fragmento ya no existe pero la referencia al binding podría mantenerse.
      */

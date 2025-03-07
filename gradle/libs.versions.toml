@@ -15,6 +15,7 @@ navigation = "2.8.8"
 firebase-bom = "33.10.0"
 lifecycle = "2.8.7"
 google-services = "4.4.2"
+play-services-auth = "21.3.0"
 splashscreen = "1.0.1"
 glide = "4.16.0"
 recyclerview = "1.4.0"
@@ -39,7 +40,8 @@ glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", versi
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core" }
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
-
+google-services = { module = "com.google.gms:google-services", version.ref = "google-services" }
+play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth" }
 
 # Navigation Component
 navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }

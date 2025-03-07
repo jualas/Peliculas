@@ -74,6 +74,9 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.runtime.ktx)
+
+    // Identificarse con cuentas de Google
+    implementation(libs.play.services.auth)
     
     // Firebase
     implementation(platform(libs.firebase.bom))
@@ -81,7 +84,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
     implementation(libs.firebase.firestore)
-    
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

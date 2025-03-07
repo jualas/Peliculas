@@ -126,7 +126,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         /**
          * Configura la visibilidad de los elementos de la interfaz según el destino de navegación.
-         * 
+         *
+         * Ajusta la visibilidad de:
+         * - Barra de acción
+         * - Navegación inferior
+         * - Botón flotante
+         * - Menú lateral
+         */
+                /**
+         * Configura el comportamiento de la UI según el destino de navegación.
+         *
          * Ajusta la visibilidad de:
          * - Barra de acción
          * - Navegación inferior
@@ -136,7 +145,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navController.addOnDestinationChangedListener { _, destination, _ ->
             // Configurar la visibilidad de elementos según el destino actual
             when (destination.id) {
-                R.id.loginFragment, R.id.registerFragment -> {
+                R.id.loginFragment, R.id.registerFragment, R.id.recoverFragment -> {
                     supportActionBar?.hide() // Ocultar barra superior en pantallas de autenticación
                     binding.bottomNavigation.visibility =
                         android.view.View.GONE // Ocultar navegación inferior
@@ -168,7 +177,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         checkUserAuthentication()
     }
 
-        /**
+    /**
      * Verifica si el usuario está autenticado en Firebase.
      *
      * Este método comprueba si hay un usuario con sesión activa:
@@ -297,7 +306,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-        /**
+    /**
      * Maneja la selección de elementos en el menú de navegación lateral.
      *
      * Este método gestiona la navegación cuando el usuario selecciona opciones del menú lateral:

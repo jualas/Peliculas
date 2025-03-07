@@ -16,6 +16,19 @@
         <string name="menu_slideshow">Presentación</string> <!-- Texto del elemento de menú "Slideshow" -->
         <string name="fab_add_item_desc">Añadir nuevo elemento</string>
 
+        <!-- Navigation Drawer Menu -->
+        <string name="nav_favorites">Favoritos</string>
+        <string name="nav_search">Búsqueda</string>
+        <string name="nav_profile">Perfil</string>
+        <string name="nav_logout">Cerrar sesión</string>
+
+        <!-- Menu options -->
+        <string name="sort">Ordenar</string>
+        <string name="sort_by_title">Ordenar por título</string>
+        <string name="sort_by_year">Ordenar por año</string>
+        <string name="search">Buscar</string>
+        <string name="filter">Filtrar</string>
+
 
         <!-- Login Activity strings -->
         <string name="btn1">Registro</string>
@@ -27,6 +40,7 @@
         <string name="googleSignInButton">Iniciar Sesión con Google</string>
         <string name="custom_sign_in_text">Iniciar sesión con Google</string>
         <string name="facebook_app_id">Iniciar Sesión con Facebook</string>
+        <string name="default_web_client_id" translatable="false">944712866383-nqjrfmi9c8cp0na3h7e424m5cnr5a68f.apps.googleusercontent.com</string>
 
         <!-- Contact Activity strings -->
         <string name="contact_name">Carteles</string>
@@ -47,6 +61,15 @@
         <!-- Error messages -->
         <string name="username_empty_error">El nombre de usuario no puede estar vacío</string>
         <string name="password_empty_error">La contraseña no puede estar vacía</string>
+
+        <!-- Tab -->
+        <string name="tab_layout_description">Pestañas de categorías de películas</string>
+        <string name="tab_movies">Películas</string>
+        <string name="tab_favorites">Favoritos</string>
+        <string name="tab_trending">Tendencias</string>
+        <string name="tab_new_releases">Nuevos Lanzamientos</string>
+        <string name="tab_categories">Categorías</string>
+
 
         <!-- Item View strings -->
         <string name="year">Año</string>

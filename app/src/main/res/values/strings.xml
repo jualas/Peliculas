@@ -16,11 +16,26 @@
     </string> <!-- Descripción de la imagen del usuario en el encabezado del cajón de navegación -->
     <string name="user">User name</string> <!-- Nombre del usuario en el encabezado del cajón de navegación -->
 
+    <!-- Texto de los elementos de menú -->
     <string name="menu_home">Home</string> <!-- Texto del elemento de menú "Home" -->
     <string name="menu_gallery">Gallery</string> <!-- Texto del elemento de menú "Gallery" -->
     <string name="menu_slideshow">Slideshow</string> <!-- Texto del elemento de menú "Slideshow" -->
     <string name="fab_add_item_desc">Add new item
     </string> <!-- Descripción del botón de acción flotante para añadir un nuevo elemento -->
+
+
+    <!-- Navigation Drawer Menu -->
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_logout">Log Out</string>
+
+    <!-- Menu options -->
+    <string name="sort">Sort</string>
+    <string name="sort_by_title">Sort by title</string>
+    <string name="sort_by_year">Sort by year</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
 
 
     <!-- Login Activity strings -->
@@ -34,6 +49,7 @@
     <string name="googleSignInButton">Sign In with Google</string>
     <string name="custom_sign_in_text">Sign In with Google</string>
     <string name="facebook_app_id">Sign In with Facebook</string>
+    <string name="default_web_client_id" translatable="false">944712866383-nqjrfmi9c8cp0na3h7e424m5cnr5a68f.apps.googleusercontent.com</string>
 
     <!-- Contact Activity strings -->
 
@@ -54,12 +70,18 @@
     <string name="snackbar_google">Sign in with Google</string>
 
     <!-- Error messages -->
-
     <string name="username_empty_error">Username cannot be empty</string>
     <string name="password_empty_error">Password cannot be empty</string>
 
-    <!-- Item View strings -->
+    <!-- Tab -->
+    <string name="tab_layout_description">Movie categories tabs</string>
+    <string name="tab_movies">Movies</string>
+    <string name="tab_favorites">Favorites</string>
+<string name="tab_trending">Trending</string>
+<string name="tab_new_releases">New Releases</string>
+<string name="tab_categories">Categories</string>
 
+    <!-- Item View strings -->
     <string name="year">Year</string>
     <string name="condition">Condition</string>
     <string name="estimated_price">Estimated Price</string>
@@ -70,7 +92,7 @@
     <string name="movie_poster_description">Movie poster</string>
     <string name="favorite_button_description">Mark as favorite</string>
 
-    <!-- Condition translations -->
+    <!-- Condition -->
     <string name="condition_excellent">Excellent</string>
     <string name="condition_good">Good</string>
     <string name="condition_regular">Regular</string>

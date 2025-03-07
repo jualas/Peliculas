@@ -24,7 +24,7 @@ class MovieViewModel : ViewModel() {
     /** LiveData mutable interna para la lista de películas */
     private val _movies = MutableLiveData<List<Movie>>()
     /** LiveData pública expuesta para observar la lista de películas */
-    val movies: LiveData<List<Movie>> = _movies
+    val movies: LiveData<List<Movie>> get() = _movies
     
     /** LiveData mutable interna para la lista de películas favoritas */
     private val _favoriteMovies = MutableLiveData<List<Movie>>()
@@ -189,6 +189,14 @@ class MovieViewModel : ViewModel() {
     fun selectMovie(movieId: String) {
         _selectedMovieId.value = movieId
     }
+
+    // En la clase MovieViewModel
+fun sortMoviesByTitle() {
+            _movies.value?.let { movies ->
+                val sortedList = movies.sortedBy { it.title }
+                _movies.value = sortedList
+            }
+        }
     
     /**
      * Limpia cualquier mensaje de error actual.
